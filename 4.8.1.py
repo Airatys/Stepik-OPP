@@ -1,11 +1,7 @@
-class Cat:
-    def say(self):
-        print('meow')
+def say_hello():
+    print('Hello, World!')
 
-    def say(self):
-        print('мяу')
+def say_hello():
+    print('Привет, мир!')
 
-
-cat = Cat()
-
-cat.say()
+say_hello()
