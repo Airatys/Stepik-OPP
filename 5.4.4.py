@@ -37,4 +37,3 @@ class ColoredPoint:
 
     def __invert__(self):
         return self.__class__(self.y, self.x, tuple(map(lambda x: 255 - x, self.color)))
-
