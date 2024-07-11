@@ -37,7 +37,6 @@ class Matrix:
     def set_value(self, row, col, value):
         self.matrix[row][col] = value
 
-
     def __repr__(self):
         return f"{self.__class__.__name__}({self.rows}, {self.cols})"
 
