@@ -16,15 +16,47 @@
 # Примечание 1. Если объект, с которым выполняется операция сравнения или арифметическая операция, некорректен, метод, реализующий эту операцию, должен вернуть константу NotImplemented.
 # Примечание 2. Никаких ограничений касательно реализации класса Queue нет, она может быть произвольной.
 
+from functools import total_ordering
+
+@total_ordering
 class Queue:
     def __init__(self, *args):
-        self.
+        self.mylist = list(args)
 
     def add(self, *args):
-        self.
+        self.mylist += list(args)
+
     def pop(self):
-        pass
+        if len(self.mylist) == 0:
+            return None
+        return self.mylist.pop(0)
 
     def __str__(self):
-        string = map(str, self.)
-        return f"{' -> '.join(string)}"
+        return f'{" -> ".join(map(str,self.mylist))}'
+
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.mylist == other.mylist
+        return NotImplemented
+
+    def __lt__(self, other):
+        if isinstance(other, self.__class__):
+            return self.mylist < other.mylist
+        return NotImplemented
+
+    def __add__(self, other):
+        if isinstance(other, self.__class__):
+            return self.__class__(*(self.mylist + other.mylist))
+        return NotImplemented
+
+    def __iadd__(self, other):
+        if isinstance(other, self.__class__):
+            self.mylist += other.mylist
+            return self
+        return NotImplemented
+
+    def __rshift__(self, other):
+        if isinstance(other, int):
+            return self.__class__(*(self.mylist[other:]))
+        return NotImplemented
+
