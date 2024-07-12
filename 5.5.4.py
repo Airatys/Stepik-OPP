@@ -17,7 +17,7 @@ class Time:
         self.minutes = self.times(hours, minutes).minute
 
     @staticmethod
-    def times(h, m):
+    def times(h, m):  #(hours + minutes // 60) % 24, minutes % 60
         if h <= 23 and m <= 59:
             return time(h, m)
         if h > 23:
