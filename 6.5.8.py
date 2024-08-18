@@ -28,7 +28,7 @@ class WriteSpy:
         self.to_close = to_close
 
     def write(self, text):
-        if self.file1.closed or not self.file1.writable() or self.file2.closed or not self.file2.writable():
+        if not self.writable():
             raise ValueError('Файл закрыт или недоступен для записи')
         self.file1.write(text)
         self.file2.write(text)
