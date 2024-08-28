@@ -12,3 +12,27 @@
 # Примечание 2. Дополнительная проверка данных на корректность не требуется. Гарантируется, что реализованный класс используется только с корректными данными.
 # Примечание 3. Никаких ограничений касательно реализации класса Versioned нет, она может быть произвольной.
 
+class Versioned:
+    def __set_name__(self, cls, attr):
+        self._attr = attr
+
+    def __get__(self, obj, cls):
+        if obj is None:
+            return self
+        if self._attr in obj.__dict__:
+            return obj.__dict__[self._attr][-1]
+        else:
+            raise AttributeError('Атрибут не найден')
+
+    def __set__(self, obj, value):
+        obj.__dict__.setdefault(self._attr, []).append(value)
+
+    def get_version(self, obj, n):
+        if obj is None:
+            return self
+        if self._attr in obj.__dict__:
+            return obj.__dict__[self._attr][n - 1]
+
+    def set_version(self, obj, n):
+        tmp = obj.__dict__[self._attr][n - 1]
+        obj.__dict__.setdefault(self._attr, []).append(tmp)
